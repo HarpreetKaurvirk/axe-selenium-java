@@ -1,0 +1,28 @@
+pipeline {
+  agent none
+
+  stages {
+    stage('Hello World') {
+      agent any
+
+      steps {
+        echo 'Hi!'
+      }
+
+      post {
+        always {
+          deleteDir()
+                publishHTML (target: [
+        allowMissing: false,
+        alwaysLinkToLastBuild: false,
+        keepAll: true,
+        reportDir: '',
+        reportFiles: 'www_ice_gov_.report.html',
+        reportName: "Lighthouse"
+      ])
+
+        }
+      }
+    }
+  }
+}
